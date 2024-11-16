@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random User Generator</title>
+  <style>
+    /* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+  text-align: center;
+}
+
+h1 {
+  margin-top: 20px;
+  font-size: 2rem;
+  color: #444;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* User Info Container */
+#randomUser {
+  margin: 20px auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 400px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#randomUser p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+#randomUser p strong {
+  color: #007bff;
+}
+  </style>
+</head>
+<body>
+  <h1>Random User Generator</h1>
+  <button onclick="fetchRandomUser()">Get Random User</button>
+  <div id="randomUser"></div>
+
+  <script>
+    // Predefined list of fake company names
+    const companies = [
+      "Tech Innovators Inc.",
+      "Global Solutions Ltd.",
+      "Creative Minds Co.",
+      "Skyline Ventures",
+      "Dynamic Solutions Corp.",
+      "NextGen Enterprises"
+    ];
+
+    async function fetchRandomUser() {
+      const url = "https://randomuser.me/api/";
+      const response = await fetch(url);
+      const data = await response.json();
+      const user = data.results[0];
+
+      // Randomly select a company name
+      const companyName = companies[Math.floor(Math.random() * companies.length)];
+
+      const userContainer = document.getElementById("randomUser");
+      userContainer.innerHTML = `
+        <p><strong>Name:</strong> ${user.name.first} ${user.name.last}</p>
+        <p><strong>Email:</strong> ${user.email}</p>
+        <p><strong>Phone:</strong> ${user.phone}</p>
+        <p><strong>Company:</strong> ${companyName}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
